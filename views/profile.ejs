@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <!-- Use Google Fonts for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Link the new styling -->
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header>
+            <h1>Campus Portal</h1>
+            <p>Student Database • <%= cohort %></p>
+        </header>
+        
+        <main>
+            <div class="grid">
+                <!-- Advanced EJS: Executing a loop to iterate through the server's data -->
+                <% students.forEach(function(student) { %>
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- Show the first letter of their name -->
+                            <div class="avatar"><%= student.name.charAt(0) %></div>
+                            <div>
+                                <h2><%= student.name %></h2>
+                                <!-- Advanced EJS: Conditional logic to apply different CSS classes -->
+                                <span class="badge <%= student.status === 'Honors' ? 'badge-honors' : 'badge-active' %>">
+                                    <%= student.status %>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="info-row">
+                                <span class="label">Branch</span>
+                                <span class="value"><%= student.branch %></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Year</span>
+                                <span class="value"><%= student.year %></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">GPA</span>
+                                <!-- Applying a specific class if the GPA is >= 3.8 -->
+                                <span class="value gpa <%= student.gpa >= 3.8 ? 'high-gpa' : '' %>">
+                                    <%= student.gpa.toFixed(1) %>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                <% }); %>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
